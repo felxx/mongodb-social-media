@@ -2,19 +2,24 @@ package com.felxx.mongodb_social_media.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User implements Serializable{
     private static final long serialVersionUID = 1L;
     
+    @Id
     private String id;
-    private String username;
+    private String name;
     private String email;
 
     public User() {
     }
 
-    public User(String id, String username, String email) {
+    public User(String id, String name, String email) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.email = email;
     }
 
@@ -26,12 +31,12 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String username) {
+        this.name = username;
     }
 
     public String getEmail() {
