@@ -1,6 +1,7 @@
 package com.felxx.mongodb_social_media.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.felxx.mongodb_social_media.domain.User;
+import com.felxx.mongodb_social_media.dto.UserDTO;
 import com.felxx.mongodb_social_media.services.UserService;
 
 
@@ -20,11 +22,9 @@ public class UserResource {
     private UserService userService;
     
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> users = userService.findAll();
-        if (users.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok().body(users);
+        List<UserDTO> usersDTO = users.stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(usersDTO);
     }
 }
