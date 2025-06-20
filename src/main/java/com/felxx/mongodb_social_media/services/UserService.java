@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.felxx.mongodb_social_media.domain.User;
 import com.felxx.mongodb_social_media.repositories.UserRepository;
+import com.felxx.mongodb_social_media.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -16,5 +17,9 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public User findById(String id) {
+        return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found with id: " + id));
     }
 }
