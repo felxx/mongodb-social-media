@@ -18,6 +18,8 @@ import com.felxx.mongodb_social_media.dto.UserDTO;
 import com.felxx.mongodb_social_media.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -54,6 +56,14 @@ public class UserResource {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        User user = userService.fromDTO(userDTO);
+        user.setId(id);
+        userService.update(user);
         return ResponseEntity.noContent().build();
     }
 }
