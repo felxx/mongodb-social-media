@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.felxx.mongodb_social_media.domain.User;
+import com.felxx.mongodb_social_media.dto.UserDTO;
 import com.felxx.mongodb_social_media.repositories.UserRepository;
 import com.felxx.mongodb_social_media.services.exceptions.ObjectNotFoundException;
 
@@ -21,5 +22,13 @@ public class UserService {
 
     public User findById(String id) {
         return userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found with id: " + id));
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
